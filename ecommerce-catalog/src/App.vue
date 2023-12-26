@@ -3,6 +3,8 @@ export default {
   data() {
     return {
       products: [],
+      maxStars: 5,
+      currentProductIndex: 1,
     };
   },
   computed: {
@@ -15,27 +17,43 @@ export default {
         return "unavailable";
       }
     },
+    filledStars() {
+      const filledCount = Math.round(
+        this.products.rating ? this.products.rating.rate : 0
+      );
+      return Array.from({ length: filledCount }, (_, index) => index);
+    },
+    emptyStars() {
+      const emptyCount =
+        this.maxStars -
+        Math.round(this.products.rating ? this.products.rating.rate : 0);
+      return Array.from({ length: emptyCount }, (_, index) => index);
+    },
   },
   mounted() {
-    this.fetchProduct();
+    this.fetchProduct(this.currentProductIndex);
   },
   methods: {
-    getRating() {
-      if (this.products.rating) {
-        return this.products.rating.rate;
-      } else {
-        return "N/A";
-      }
-    },
-    async fetchProduct() {
+    async fetchProduct(index) {
       try {
-        const response = await fetch("https://fakestoreapi.com/products/1");
+        const response = await fetch(`https://fakestoreapi.com/products/${index}`);
         const data = await response.json();
+        if (Object.keys(data).length === 0) {
+          console.error("Empty response from the server");
+          return;
+        }
         this.products = data;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     },
+    nextProduct(){
+      this.currentProductIndex++;
+      if(this.currentProductIndex > 20){
+        this.currentProductIndex = 1;
+      }
+      this.fetchProduct(this.currentProductIndex);
+    }
   },
 };
 </script>
@@ -44,6 +62,10 @@ export default {
   <div :class="productCategory">
     <div class="hero"><img src="./assets/img/bg-pattern.svg" alt="" /></div>
     <div class="product">
+      <div class="unavailable-product">
+        <p>This product is unavailable to show</p>
+        <div class="next" @click="nextProduct">Next Product</div>
+      </div>
       <div class="img-prod">
         <img :src="products.image" alt="" height="480px" width="350px" />
       </div>
@@ -56,18 +78,19 @@ export default {
             {{ products.category }}
           </p>
           <p>
-            {{ getRating() }}
-            /5 <span class="stars"></span>
+            {{ products.rating ? products.rating.rate : "N/A" }}
+            /5 <div v-for="star in filledStars" :key="star" class="stars">
+            </div><div v-for="star in emptyStars" :key="star" class="stars-off"></div>
           </p>
         </div>
         <hr />
         <p class="desc">
           {{ products.description }}
         </p>
-        <hr />
+        <hr class="bottom-hr" />
         <p>${{ products.price }}</p>
         <div class="buy">Buy</div>
-        <div class="next">Next Product</div>
+        <div class="next" @click="nextProduct">Next Product</div>
       </div>
     </div>
   </div>

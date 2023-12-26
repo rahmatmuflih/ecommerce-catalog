@@ -24,11 +24,17 @@ body {
 .women-clothing .detail-prod > .next {
   color: var(--color-4);
 }
-.women-clothing .buy {
+.women-clothing .buy,
+.women-clothing .next:hover,
+.women-clothing .stars {
   background-color: var(--color-4);
 }
-.women-clothing .next {
+.women-clothing .next,
+.women-clothing .stars-off {
   border: 3px var(--color-4) solid;
+}
+.women-clothing .unavailable-product {
+  display: none;
 }
 .men-clothing .hero {
   background-color: var(--color-5);
@@ -38,14 +44,34 @@ body {
 .men-clothing .detail-prod > .next {
   color: var(--color-1);
 }
-.men-clothing .buy {
+.men-clothing .buy,
+.men-clothing .next:hover,
+.men-clothing .stars {
   background-color: var(--color-1);
 }
-.men-clothing .next {
+.men-clothing .next,
+.men-clothing .stars-off {
   border: 3px var(--color-1) solid;
+}
+.men-clothing .unavailable-product {
+  display: none;
 }
 .unavailable .hero {
   background-color: var(--color-7);
+}
+.unavailable .img-prod,
+.unavailable .detail-prod {
+  display: none;
+}
+.unavailable .next {
+  position: static;
+  border: 3px black solid;
+  border-radius: 4px;
+  margin: 0;
+  width: 40%;
+}
+.unavailable .next:hover {
+  background-color: black;
 }
 .hero {
   width: auto;
@@ -69,12 +95,29 @@ body {
 .cat-rat {
   display: flex;
 }
+.unavailable-product {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../img/sad-face.svg");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: center;
+  justify-content: center;
+  align-items: center;
+}
+.unavailable-product p {
+  font-weight: 400;
+  font-size: 20px;
+}
 .img-prod {
   margin: 50px;
 }
 .detail-prod {
+  position: relative;
   width: 100%;
-  margin: 50px;
+  margin: 0 50px;
+  margin-top: 10px;
 }
 .detail-prod h1,
 .detail-prod p:nth-child(6) {
@@ -87,11 +130,35 @@ body {
   font-size: 18px;
   justify-content: space-between;
 }
-.desc {
-  color: var(--color-3);
+.stars {
+  display: inline-block;
+  margin-bottom: -2px;
+  margin-left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+.stars-off {
+  display: inline-block;
+  margin-left: 3px;
+  margin-bottom: -2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.bottom-hr {
+  position: absolute;
+  width: 100%;
+  top: 420px;
+}
+.product :nth-child(6) {
+  position: absolute;
+  top: 420px;
 }
 .buy,
 .next {
+  position: absolute;
+  top: 500px;
   display: inline-block;
   width: 200px;
   border-radius: 4px;
@@ -101,10 +168,14 @@ body {
   font-weight: 600;
 }
 .buy {
-  color: var(--color-8);
+  margin-top: 3px;
 }
 .next {
-  margin-left: 20px;
+  margin-left: 220px;
+}
+.buy,
+.next:hover {
+  color: var(--color-8) !important;
 }
 .buy:hover,
 .next:hover {
