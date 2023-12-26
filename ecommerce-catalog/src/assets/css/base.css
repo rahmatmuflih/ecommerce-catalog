@@ -81,6 +81,16 @@ body {
 .hero img {
   width: 100%;
 }
+.product-loading {
+  justify-content: center;
+  align-items: center;
+}
+.product-loading,
+.product,
+.cat-rat {
+  display: flex;
+}
+.product-loading,
 .product {
   position: absolute;
   top: 90px;
@@ -91,9 +101,13 @@ body {
   background-color: var(--color-8);
   box-shadow: 4px 2px 21px #00000033;
 }
-.product,
-.cat-rat {
-  display: flex;
+.loader-1 {
+  height: 100px;
+  width: 100px;
+  border: 10px solid #ccc;
+  border-right-color: #000;
+  border-radius: 50%;
+  animation: rotate 1.5s linear infinite;
 }
 .unavailable-product {
   width: 100%;
@@ -180,4 +194,9 @@ body {
 .buy:hover,
 .next:hover {
   cursor: pointer;
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
 }

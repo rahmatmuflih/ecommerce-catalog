@@ -5,6 +5,7 @@ export default {
       products: [],
       maxStars: 5,
       currentProductIndex: 1,
+      isLoading: false,
     };
   },
   computed: {
@@ -36,6 +37,8 @@ export default {
   methods: {
     async fetchProduct(index) {
       try {
+        this.isLoading = true;
+
         const response = await fetch(`https://fakestoreapi.com/products/${index}`);
         const data = await response.json();
         if (Object.keys(data).length === 0) {
@@ -45,6 +48,8 @@ export default {
         this.products = data;
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally{
+        this.isLoading = false;
       }
     },
     nextProduct(){
@@ -61,36 +66,41 @@ export default {
 <template>
   <div :class="productCategory">
     <div class="hero"><img src="./assets/img/bg-pattern.svg" alt="" /></div>
-    <div class="product">
-      <div class="unavailable-product">
-        <p>This product is unavailable to show</p>
-        <div class="next" @click="nextProduct">Next Product</div>
-      </div>
-      <div class="img-prod">
-        <img :src="products.image" alt="" height="480px" width="350px" />
-      </div>
-      <div class="detail-prod">
-        <h1>
-          {{ products.title }}
-        </h1>
-        <div class="cat-rat">
-          <p>
-            {{ products.category }}
-          </p>
-          <p>
-            {{ products.rating ? products.rating.rate : "N/A" }}
-            /5 <div v-for="star in filledStars" :key="star" class="stars">
-            </div><div v-for="star in emptyStars" :key="star" class="stars-off"></div>
-          </p>
+    <div v-if="isLoading" class="product-loading">
+      <div class="loader-1"></div>
+    </div>
+    <div v-else>
+      <div class="product">
+        <div class="unavailable-product">
+          <p>This product is unavailable to show</p>
+          <div class="next" @click="nextProduct">Next Product</div>
         </div>
-        <hr />
-        <p class="desc">
-          {{ products.description }}
-        </p>
-        <hr class="bottom-hr" />
-        <p>${{ products.price }}</p>
-        <div class="buy">Buy</div>
-        <div class="next" @click="nextProduct">Next Product</div>
+        <div class="img-prod">
+          <img :src="products.image" alt="" height="480px" width="350px" />
+        </div>
+        <div class="detail-prod">
+          <h1>
+            {{ products.title }}
+          </h1>
+          <div class="cat-rat">
+            <p>
+              {{ products.category }}
+            </p>
+            <p>
+              {{ products.rating ? products.rating.rate : "N/A" }}
+              /5 <div v-for="star in filledStars" :key="star" class="stars">
+              </div><div v-for="star in emptyStars" :key="star" class="stars-off"></div>
+            </p>
+          </div>
+          <hr />
+          <p class="desc">
+            {{ products.description }}
+          </p>
+          <hr class="bottom-hr" />
+          <p>${{ products.price }}</p>
+          <div class="buy">Buy</div>
+          <div class="next" @click="nextProduct">Next Product</div>
+        </div>
       </div>
     </div>
   </div>
