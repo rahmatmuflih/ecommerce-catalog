@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Silkscreen&display=swap");
+
+:root {
+  --color-1: #002772;
+  --color-2: #fde2ff;
+  --color-3: #1e1e1e;
+  --color-4: #720060;
+  --color-5: #d6e6ff;
+  --color-6: #3f3f3f;
+  --color-7: #dcdcdc;
+  --color-8: #fff;
+}
+* {
+  font-family: "Inter", sans-serif;
+}
+body {
+  margin: 0;
+}
+.women-clothing .hero {
+  background-color: var(--color-2);
+}
+.women-clothing .detail-prod > h1,
+.women-clothing .detail-prod > :nth-child(6),
+.women-clothing .detail-prod > .next {
+  color: var(--color-4);
+}
+.women-clothing .buy {
+  background-color: var(--color-4);
+}
+.women-clothing .next {
+  border: 3px var(--color-4) solid;
+}
+.men-clothing .hero {
+  background-color: var(--color-5);
+}
+.men-clothing .detail-prod > h1,
+.men-clothing .detail-prod > :nth-child(6),
+.men-clothing .detail-prod > .next {
+  color: var(--color-1);
+}
+.men-clothing .buy {
+  background-color: var(--color-1);
+}
+.men-clothing .next {
+  border: 3px var(--color-1) solid;
+}
+.unavailable .hero {
+  background-color: var(--color-7);
+}
+.hero {
+  width: auto;
+  height: 548px;
+  overflow: hidden;
+}
+.hero img {
+  width: 100%;
+}
+.product {
+  position: absolute;
+  top: 90px;
+  left: 12.5vw;
+  width: 75vw;
+  height: 580px;
+  margin: auto;
+  background-color: var(--color-8);
+  box-shadow: 4px 2px 21px #00000033;
+}
+.product,
+.cat-rat {
+  display: flex;
+}
+.img-prod {
+  margin: 50px;
+}
+.detail-prod {
+  width: 100%;
+  margin: 50px;
+}
+.detail-prod h1,
+.detail-prod p:nth-child(6) {
+  font-weight: 600;
+  font-size: 28px;
+}
+.cat-rat {
+  color: var(--color-6);
+  font-weight: 400;
+  font-size: 18px;
+  justify-content: space-between;
+}
+.desc {
+  color: var(--color-3);
+}
+.buy,
+.next {
+  display: inline-block;
+  width: 200px;
+  border-radius: 4px;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px 0;
+  font-weight: 600;
+}
+.buy {
+  color: var(--color-8);
+}
+.next {
+  margin-left: 20px;
+}
+.buy:hover,
+.next:hover {
+  cursor: pointer;
+}
